@@ -116,9 +116,7 @@ async def run_agent(user_msg: str = None):
         ]
         for req in requests:
             resp = await agent_workflow.run(user_msg=req)
-            print("000000000000000000000000000000000000000000000000000000000")
             print(resp)
-            print("000000000000000000000000000000000000000000000000000000000")
         return None
     else:
         # For test framework: process single message and return response as string
