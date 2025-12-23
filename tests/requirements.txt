@@ -1,0 +1,4 @@
+# Update monocle-test-tools to latest beta version
+pytest
+--extra-index-url https://okahu.jfrog.io/artifactory/api/pypi/okahu-patch-pypi/simple
+monocle-test-tools==0.7.0b2

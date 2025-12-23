@@ -6,7 +6,7 @@ from typing import Dict, Any
 from fastapi import FastAPI, HTTPException
 from mcp.server.fastmcp import FastMCP
 
-DEFAULT_PORT = 8002
+DEFAULT_PORT = 8001
 port = int(os.getenv("PORT", DEFAULT_PORT))
 
 # Initialize the weather MCP server
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     print("Returns mock weather data with random temperature between 40-100")
     
     uvicorn.run(
-        "weather-mcp-server:app",
+        "weather_mcp_server:app",
         host="127.0.0.1",
         port=port,
         reload=True,
