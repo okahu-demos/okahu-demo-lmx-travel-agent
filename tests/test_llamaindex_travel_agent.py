@@ -2,9 +2,9 @@ from asyncio import sleep
 import logging
 import pytest 
 import logging
-import uvicorn
-import threading
-import time
+# import uvicorn
+# import threading
+# import time
 import os
 from dotenv import load_dotenv
 
@@ -12,24 +12,24 @@ from llamaindex_travel_agent import (
     setup_agents
 )
 from monocle_test_tools import TestCase, MonocleValidator
-from weather_mcp_server import app as weather_app
+# from weather_mcp_server import app as weather_app
 
 OKAHU_API_KEY = os.environ.get('OKAHU_API_KEY')
 logging.basicConfig(level=logging.WARN)
 load_dotenv()
 
-def start_weather_server():
-    """Start the weather MCP server on port 8001."""
+# def start_weather_server():
+#     """Start the weather MCP server on port 8001."""
 
-    def run_server():
-        uvicorn.run(weather_app, host="127.0.0.1", port=8001, log_level="error")
+#     def run_server():
+#         uvicorn.run(weather_app, host="127.0.0.1", port=8001, log_level="error")
 
-    server_thread = threading.Thread(target=run_server, daemon=True)
-    server_thread.start()
-    time.sleep(2)  # Wait for server to start
-    return server_thread
+#     server_thread = threading.Thread(target=run_server, daemon=True)
+#     server_thread.start()
+#     time.sleep(2)  # Wait for server to start
+#     return server_thread
 
-weather_server_process = start_weather_server()
+# weather_server_process = start_weather_server()
 
 
 agent_test_cases:list[TestCase] = [
