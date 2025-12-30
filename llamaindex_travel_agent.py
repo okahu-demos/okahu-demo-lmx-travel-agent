@@ -11,7 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-setup_monocle_telemetry(workflow_name="travel-agent-lmx-wf-05", monocle_exporters_list='okahu,file')
+setup_monocle_telemetry(workflow_name="okahu_demo_llamaindex_travel_agent", monocle_exporters_list='okahu,file')
 
 def book_hotel(hotel_name: str):
     """Book a hotel"""
@@ -41,53 +41,63 @@ async def setup_agents():
 
     flight_tool = FunctionTool.from_defaults(
         fn=book_flight,
-        name="lmx_book_flight_tool_05",
+        name="lmx_book_flight_tool",
         description="Books a flight from one airport to another."
     )
     flight_agent = FunctionAgent(
-                                name="lmx_flight_booking_agent_05",
+                                name="lmx_flight_booking_agent",
                                 tools=[flight_tool],
                                 llm=llm,
                                 system_prompt="""You are a flight booking agent who books flights as per the request. 
                                         When you receive a flight booking request, immediately use the book_flight tool to complete the booking.
-                                        After successfully booking the flight, you MUST handoff back to lmx_coordinator_05 with the booking confirmation message.""",
+                                        After successfully booking the flight, you MUST handoff back to lmx_coordinator with the booking confirmation message.""",
                                 description="Flight booking agent",
-                                can_handoff_to=["lmx_coordinator_05"]
+                                can_handoff_to=["lmx_coordinator"]
                             )
 
     hotel_tool = FunctionTool.from_defaults(
         fn=book_hotel,
-        name="lmx_book_hotel_tool_05",
+        name="lmx_book_hotel_tool",
         description="Books a hotel stay."
     )
     hotel_agent = FunctionAgent(
-                                name="lmx_hotel_booking_agent_05",
+                                name="lmx_hotel_booking_agent",
                                 tools=[hotel_tool],
                                 llm=llm,
                                 system_prompt="""You are a hotel booking agent who books hotels as per the request.
                                         When you receive a hotel booking request, immediately use the book_hotel tool to complete the booking.
-                                        After successfully booking the hotel, you MUST handoff back to lmx_coordinator_05 with the booking confirmation message.""",
+                                        After successfully booking the hotel, you MUST handoff back to lmx_coordinator with the booking confirmation message.""",
                                 description="Hotel booking agent",
-                                can_handoff_to=["lmx_coordinator_05"]
+                                can_handoff_to=["lmx_coordinator"]
+                            )
+    
+    weather_agent = FunctionAgent(
+                                name="lmx_weather_agent",
+                                tools=[weather_tool for weather_tool in weather_tools],
+                                llm=llm,
+                                system_prompt="""You are a weather agent who provides weather information as per the request.
+                                        When you receive a weather information request, immediately use the weather tools to provide the information.
+                                        After successfully providing the weather information, you MUST handoff back to lmx_coordinator with the weather details.""",
+                                description="Weather information agent",
+                                can_handoff_to=["lmx_coordinator"]
                             )
 
     coordinator = FunctionAgent(
-                                name="lmx_coordinator_05",
-                                tools = weather_tools,
+                                name="lmx_coordinator",
                                 llm=llm,
                                 system_prompt=
                                 """You are a coordinator agent who manages flight and hotel booking agents. 
                          
                                     For each user request:
-                                    1. First delegate flight booking to the lmx_flight_booking_agent_05 agent
-                                    2. After flight booking is complete, delegate hotel booking to the lmx_hotel_booking_agent_05 agent  
+                                    1. First delegate flight booking to the lmx_flight_booking_agent agent
+                                    2. After flight booking is complete, delegate hotel booking to the lmx_hotel_booking_agent agent  
                                     3. Once both bookings are complete, use weather tools if weather information is requested
                                     4. Provide a consolidated response with all booking details and weather information
                                     
                                     Always ensure both agents complete their tasks and gather all information before providing the final response.
                                     Continue delegating until all tasks are done.""",
                                 description="Travel booking coordinator agent",
-                                can_handoff_to=["lmx_flight_booking_agent_05", "lmx_hotel_booking_agent_05"])
+                                can_handoff_to=["lmx_flight_booking_agent", "lmx_hotel_booking_agent", "lmx_weather_agent"])
 
     agent_workflow = AgentWorkflow(
         handoff_prompt="""As soon as you have figured out the requirements, 
@@ -95,9 +105,10 @@ async def setup_agents():
         For eg if you need to book a flight, then delegate the task to flight agent.
         If you need to book a hotel, then delegate the task to hotel agent.
         If you can book hotel or flight direclty, then do that and collect the response and then handoff to the supervisor agent.
+        If you need to provide weather information, then delegate the task to weather agent.
         {agent_info}
         """,
-        agents=[coordinator, flight_agent, hotel_agent],
+        agents=[coordinator, flight_agent, hotel_agent, weather_agent],
         root_agent=coordinator.name
     )
     return agent_workflow
@@ -111,9 +122,7 @@ async def run_agent(user_msg: str = None):
     if user_msg is None:
         requests = [
             "Book a flight from San Jose to Boston and a book hotel stay at Hyatt Hotel, and tell the weather in Boston.",
-    #        "book a flight from San Francisco to New York and a book hotel stay at Hilton Hotel",
-    #        "book a flight from Los Angeles to Miami and a book hotel stay at Marriott Hotel",
-        ]
+            ]
         for req in requests:
             resp = await agent_workflow.run(user_msg=req)
             print(resp)
