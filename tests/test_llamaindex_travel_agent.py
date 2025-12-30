@@ -28,33 +28,33 @@ agent_test_cases:list[TestCase] = [
             {
             "span_type": "agentic.invocation",
             "entities": [
-                {"type": "agent", "name": "lmx_coordinator_05"}
+                {"type": "agent", "name": "lmx_coordinator"}
                 ]
             },
             {
             "span_type": "agentic.invocation",
             "entities": [
-                {"type": "agent", "name": "lmx_flight_booking_agent_05"}
+                {"type": "agent", "name": "lmx_flight_booking_agent"}
                 ]
             },
             {
                 "span_type": "agentic.tool.invocation",
                 "entities": [
-                    {"type": "tool", "name": "lmx_book_flight_tool_05"},
-                    {"type": "agent", "name": "lmx_flight_booking_agent_05"}
+                    {"type": "tool", "name": "lmx_book_flight_tool"},
+                    {"type": "agent", "name": "lmx_flight_booking_agent"}
                 ]
             },
             {
             "span_type": "agentic.invocation",
             "entities": [
-                {"type": "agent", "name": "lmx_hotel_booking_agent_05"}
+                {"type": "agent", "name": "lmx_hotel_booking_agent"}
                 ]
             },
             {
                 "span_type": "agentic.tool.invocation",
                 "entities": [
-                    {"type": "tool", "name": "lmx_book_hotel_tool_05"},
-                     {"type": "agent", "name": "lmx_hotel_booking_agent_05"}
+                    {"type": "tool", "name": "lmx_book_hotel_tool"},
+                     {"type": "agent", "name": "lmx_hotel_booking_agent"}
                 ]
             }
         ]
