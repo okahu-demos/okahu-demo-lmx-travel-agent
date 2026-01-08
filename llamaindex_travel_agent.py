@@ -11,7 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-setup_monocle_telemetry(workflow_name="okahu_demo_llamaindex_travel_agent", monocle_exporters_list='okahu,file')
+setup_monocle_telemetry(workflow_name="okahu_demos_llamaindex_travel_agent", monocle_exporters_list='okahu,file')
 
 def book_hotel(hotel_name: str):
     """Book a hotel"""

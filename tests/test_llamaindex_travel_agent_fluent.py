@@ -14,7 +14,7 @@ async def setup_supervior():
 
 @pytest.mark.asyncio
 async def test_agent_and_tool_invocation(monocle_trace_asserter):
-    await monocle_trace_asserter.run_async_agent(supervisor, "llamaindex",
+    await monocle_trace_asserter.run_agent_async(supervisor, "llamaindex",
                     "Book a flight from San Francisco to Mumbai on April 30th 2026. Book hotel Marriott in Central Mumbai. Also how is the weather going to be in Mumbai?")
 
     monocle_trace_asserter.called_tool("lmx_book_flight_tool","lmx_flight_booking_agent") \
