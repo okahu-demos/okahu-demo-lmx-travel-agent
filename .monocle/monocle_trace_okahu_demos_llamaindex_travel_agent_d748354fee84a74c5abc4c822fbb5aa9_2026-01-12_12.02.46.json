@@ -1,0 +1,211 @@
+[{
+    "name": "openai.resources.chat.completions.AsyncCompletions.create",
+    "context": {
+        "trace_id": "d748354fee84a74c5abc4c822fbb5aa9",
+        "span_id": "be771b582059c195",
+        "trace_state": "[]"
+    },
+    "kind": "SpanKind.INTERNAL",
+    "parent_id": "3845ea98397124af",
+    "start_time": "2026-01-12T20:02:45.950411Z",
+    "end_time": "2026-01-12T20:02:46.203980Z",
+    "status": {
+        "status_code": "UNSET"
+    },
+    "attributes": {
+        "monocle_apptrace.version": "0.7.0b6",
+        "monocle_apptrace.language": "python",
+        "span_source": "/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/llms/openai/base.py:809",
+        "workflow.name": "okahu_demos_llamaindex_travel_agent",
+        "entity.1.type": "inference.openai",
+        "entity.1.provider_name": "api.openai.com",
+        "entity.1.inference_endpoint": "https://api.openai.com/v1/",
+        "entity.2.name": "gpt-4o",
+        "entity.2.type": "model.llm.gpt-4o",
+        "span.type": "inference",
+        "scope.agentic.turn": "d9c3c5e2bcf27fb318904ab007e31d18",
+        "entity.count": 2
+    },
+    "events": [
+        {
+            "name": "data.input",
+            "timestamp": "2026-01-12T20:02:45.950503Z",
+            "attributes": {
+                "input": [
+                    "{\"system\": \"You are a coordinator agent who manages flight and hotel booking agents. \\n                         \\n                                    For each user request:\\n                                    1. First delegate flight booking to the lmx_flight_booking_agent agent\\n                                    2. After flight booking is complete, delegate hotel booking to the lmx_hotel_booking_agent agent  \\n                                    3. Once both bookings are complete, use weather tools if weather information is requested\\n                                    4. Provide a consolidated response with all booking details and weather information\\n                                    \\n                                    Always ensure both agents complete their tasks and gather all information before providing the final response.\\n                                    Continue delegating until all tasks are done.\"}",
+                    "{\"user\": \"Book a flight from San Jose to Boston and a book hotel stay at Hyatt Hotel, and tell the weather in Boston.\"}"
+                ]
+            }
+        },
+        {
+            "name": "data.output",
+            "timestamp": "2026-01-12T20:02:46.203899Z",
+            "attributes": {
+                "error_code": "error",
+                "response": "Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}"
+            }
+        },
+        {
+            "name": "metadata",
+            "timestamp": "2026-01-12T20:02:46.203932Z",
+            "attributes": {}
+        }
+    ],
+    "links": [],
+    "resource": {
+        "attributes": {
+            "service.name": "okahu_demos_llamaindex_travel_agent"
+        },
+        "schema_url": ""
+    }
+}
+,{
+    "name": "llama_index.core.agent.workflow.function_agent.FunctionAgent.take_step",
+    "context": {
+        "trace_id": "d748354fee84a74c5abc4c822fbb5aa9",
+        "span_id": "3845ea98397124af",
+        "trace_state": "[]"
+    },
+    "kind": "SpanKind.INTERNAL",
+    "parent_id": "a6d6eff965fe0a5f",
+    "start_time": "2026-01-12T20:02:45.937696Z",
+    "end_time": "2026-01-12T20:02:46.208827Z",
+    "status": {
+        "status_code": "ERROR",
+        "description": "AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}"
+    },
+    "attributes": {
+        "monocle_apptrace.version": "0.7.0b6",
+        "monocle_apptrace.language": "python",
+        "span_source": "/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/multi_agent_workflow.py:415",
+        "workflow.name": "okahu_demos_llamaindex_travel_agent",
+        "span.type": "generic",
+        "scope.agentic.turn": "d9c3c5e2bcf27fb318904ab007e31d18"
+    },
+    "events": [
+        {
+            "name": "exception",
+            "timestamp": "2026-01-12T20:02:46.208803Z",
+            "attributes": {
+                "exception.type": "openai.AuthenticationError",
+                "exception.message": "Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}",
+                "exception.stacktrace": "Traceback (most recent call last):\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/trace/__init__.py\", line 589, in use_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/sdk/trace/__init__.py\", line 1105, in start_as_current_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 449, in start_as_monocle_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 121, in take_step\n    last_chat_response = await self._get_streaming_response(\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 76, in _get_streaming_response\n    async for last_chat_response in response:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/llms/callbacks.py\", line 89, in wrapped_gen\n    async for x in f_return_val:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/llms/openai/base.py\", line 809, in gen\n    async for response in await aclient.chat.completions.create(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 362, in atask_wrapper\n    return await amonocle_wrapper(tracer, handler, to_wrap, wrapped, instance, source_path, args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 316, in amonocle_wrapper\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py\", line 2678, in create\n    return await self._post(\n           ^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1797, in post\n    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1597, in request\n    raise self._make_status_error_from_response(err.response) from None\nopenai.AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}\n",
+                "exception.escaped": "False"
+            }
+        }
+    ],
+    "links": [],
+    "resource": {
+        "attributes": {
+            "service.name": "okahu_demos_llamaindex_travel_agent"
+        },
+        "schema_url": ""
+    }
+}
+,{
+    "name": "llama_index.core.agent.workflow.multi_agent_workflow.AgentWorkflow.run",
+    "context": {
+        "trace_id": "d748354fee84a74c5abc4c822fbb5aa9",
+        "span_id": "a6d6eff965fe0a5f",
+        "trace_state": "[]"
+    },
+    "kind": "SpanKind.INTERNAL",
+    "parent_id": "6ba8cebae47191b7",
+    "start_time": "2026-01-12T20:02:45.874421Z",
+    "end_time": "2026-01-12T20:02:46.211408Z",
+    "status": {
+        "status_code": "ERROR",
+        "description": "AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}"
+    },
+    "attributes": {
+        "monocle_apptrace.version": "0.7.0b6",
+        "monocle_apptrace.language": "python",
+        "span_source": "/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/llamaindex_travel_agent.py:127",
+        "workflow.name": "okahu_demos_llamaindex_travel_agent",
+        "entity.1.type": "agent.llamaindex",
+        "span.type": "agentic.turn",
+        "scope.agentic.turn": "d9c3c5e2bcf27fb318904ab007e31d18",
+        "entity.count": 1,
+        "span.subtype": "turn",
+        "_active_agent_name": ""
+    },
+    "events": [
+        {
+            "name": "data.input",
+            "timestamp": "2026-01-12T20:02:45.874457Z",
+            "attributes": {
+                "input": "Book a flight from San Jose to Boston and a book hotel stay at Hyatt Hotel, and tell the weather in Boston."
+            }
+        },
+        {
+            "name": "data.output",
+            "timestamp": "2026-01-12T20:02:46.209616Z",
+            "attributes": {}
+        },
+        {
+            "name": "exception",
+            "timestamp": "2026-01-12T20:02:46.211399Z",
+            "attributes": {
+                "exception.type": "openai.AuthenticationError",
+                "exception.message": "Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}",
+                "exception.stacktrace": "Traceback (most recent call last):\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/trace/__init__.py\", line 589, in use_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/sdk/trace/__init__.py\", line 1105, in start_as_current_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 449, in start_as_monocle_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/broker.py\", line 167, in _run_workflow\n    workflow_result = await registered.workflow_function(\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 309, in control_loop\n    return await runner.run(start_event=start_event)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 282, in run\n    result = await self.process_command(command)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 201, in process_command\n    raise command.exception\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/types/step_function.py\", line 118, in wrapper\n    result = await partial_func()\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py\", line 386, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/multi_agent_workflow.py\", line 415, in run_agent_step\n    agent_output = await agent.take_step(\n                   ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 362, in atask_wrapper\n    return await amonocle_wrapper(tracer, handler, to_wrap, wrapped, instance, source_path, args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 316, in amonocle_wrapper\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 121, in take_step\n    last_chat_response = await self._get_streaming_response(\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 76, in _get_streaming_response\n    async for last_chat_response in response:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/llms/callbacks.py\", line 89, in wrapped_gen\n    async for x in f_return_val:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/llms/openai/base.py\", line 809, in gen\n    async for response in await aclient.chat.completions.create(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 362, in atask_wrapper\n    return await amonocle_wrapper(tracer, handler, to_wrap, wrapped, instance, source_path, args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 316, in amonocle_wrapper\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py\", line 2678, in create\n    return await self._post(\n           ^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1797, in post\n    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1597, in request\n    raise self._make_status_error_from_response(err.response) from None\nopenai.AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}\n",
+                "exception.escaped": "False"
+            }
+        }
+    ],
+    "links": [],
+    "resource": {
+        "attributes": {
+            "service.name": "okahu_demos_llamaindex_travel_agent"
+        },
+        "schema_url": ""
+    }
+}
+,{
+    "name": "workflow",
+    "context": {
+        "trace_id": "d748354fee84a74c5abc4c822fbb5aa9",
+        "span_id": "6ba8cebae47191b7",
+        "trace_state": "[]"
+    },
+    "kind": "SpanKind.INTERNAL",
+    "parent_id": null,
+    "start_time": "2026-01-12T20:02:45.874366Z",
+    "end_time": "2026-01-12T20:02:46.212747Z",
+    "status": {
+        "status_code": "ERROR",
+        "description": "AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}"
+    },
+    "attributes": {
+        "monocle_apptrace.version": "0.7.0b6",
+        "monocle_apptrace.language": "python",
+        "span_source": "/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/llamaindex_travel_agent.py:127",
+        "scope.agentic.turn": "d9c3c5e2bcf27fb318904ab007e31d18",
+        "workflow.name": "okahu_demos_llamaindex_travel_agent",
+        "span.type": "workflow",
+        "entity.1.name": "okahu_demos_llamaindex_travel_agent",
+        "entity.1.type": "workflow.generic",
+        "entity.2.type": "app_hosting.generic",
+        "entity.2.name": "generic"
+    },
+    "events": [
+        {
+            "name": "exception",
+            "timestamp": "2026-01-12T20:02:46.212735Z",
+            "attributes": {
+                "exception.type": "openai.AuthenticationError",
+                "exception.message": "Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}",
+                "exception.stacktrace": "Traceback (most recent call last):\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/trace/__init__.py\", line 589, in use_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/opentelemetry/sdk/trace/__init__.py\", line 1105, in start_as_current_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 449, in start_as_monocle_span\n    yield span\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 183, in amonocle_wrapper_span_processor\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path, False, args, kwargs)\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/broker.py\", line 167, in _run_workflow\n    workflow_result = await registered.workflow_function(\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 309, in control_loop\n    return await runner.run(start_event=start_event)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 282, in run\n    result = await self.process_command(command)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/control_loop.py\", line 201, in process_command\n    raise command.exception\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/workflows/runtime/types/step_function.py\", line 118, in wrapper\n    result = await partial_func()\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py\", line 386, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/multi_agent_workflow.py\", line 415, in run_agent_step\n    agent_output = await agent.take_step(\n                   ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 362, in atask_wrapper\n    return await amonocle_wrapper(tracer, handler, to_wrap, wrapped, instance, source_path, args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 316, in amonocle_wrapper\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 121, in take_step\n    last_chat_response = await self._get_streaming_response(\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/agent/workflow/function_agent.py\", line 76, in _get_streaming_response\n    async for last_chat_response in response:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/core/llms/callbacks.py\", line 89, in wrapped_gen\n    async for x in f_return_val:\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/llama_index/llms/openai/base.py\", line 809, in gen\n    async for response in await aclient.chat.completions.create(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 362, in atask_wrapper\n    return await amonocle_wrapper(tracer, handler, to_wrap, wrapped, instance, source_path, args, kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 316, in amonocle_wrapper\n    return_value, span_status = await amonocle_wrapper_span_processor(tracer, handler, to_wrap, wrapped, instance, source_path,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/monocle_apptrace/instrumentation/common/wrapper.py\", line 215, in amonocle_wrapper_span_processor\n    return_value = await wrapped(*args, **kwargs)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py\", line 2678, in create\n    return await self._post(\n           ^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1797, in post\n    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/quanghoc/Documents/GitHub/okahu-demo-lmx-travel-agent/.venv/lib/python3.12/site-packages/openai/_base_client.py\", line 1597, in request\n    raise self._make_status_error_from_response(err.response) from None\nopenai.AuthenticationError: Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.\", 'type': 'invalid_request_error', 'param': None, 'code': None}}\n",
+                "exception.escaped": "False"
+            }
+        }
+    ],
+    "links": [],
+    "resource": {
+        "attributes": {
+            "service.name": "okahu_demos_llamaindex_travel_agent"
+        },
+        "schema_url": ""
+    }
+}
+]

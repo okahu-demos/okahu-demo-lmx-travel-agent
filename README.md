@@ -8,7 +8,6 @@ To try this agent
 - Fork this repo and run in the Github Codespace 
 - To run this on Mac 
   - Install python dependencies: ```pip install -r requirement.txt```
-  - Remove libmagic: ```pip uninstall python-magic```
 - To run this on Windows
   - Install python dependencies: ```pip install -r requirement.txt```
 
@@ -39,3 +38,11 @@ The app uses OpenAI gpt-4o model for inference.
    ```python lc-travel-agent.py```
    The application will prompt you for a travel booking task. You can enter something like `Book a flight from SFO to BOM next week. Book Marriot hotel in central mumbai. Also how't the weather going to be in Mumbai next week?`
    It should responds with successful booking of flight and hotel, as well as weather forcast.
+
+## Trace Results
+
+After running the travel agent app, you can view the trace results captured by Okahu. The trace contains detailed information about the agent's execution, including tool calls, LLM interactions, and workflow steps.
+
+![Trace Screenshot](trace_screenshot.png)
+
+For detailed trace data, see the trace file: [monocle_trace_okahu_demos_llamaindex_travel_agent_0ca4522a4d7b468784ccea0100fada4b_2026-01-12_12.04.00.json](.monocle/monocle_trace_okahu_demos_llamaindex_travel_agent_0ca4522a4d7b468784ccea0100fada4b_2026-01-12_12.04.00.json)
