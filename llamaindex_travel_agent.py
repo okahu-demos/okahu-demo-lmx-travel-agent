@@ -37,7 +37,7 @@ async def setup_agents():
     # Get MCP weather tools
     weather_tools = await get_mcp_tools()
    
-    llm = OpenAI(model="gpt-4o")
+    llm = OpenAI(model="gpt-4o", additional_kwargs={"stream_options": {"include_usage": True}})
 
     flight_tool = FunctionTool.from_defaults(
         fn=book_flight,
