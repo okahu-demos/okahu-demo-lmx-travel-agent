@@ -1,17 +1,19 @@
 
 import asyncio
 import time
+from uuid import UUID
 from llama_index.core.tools import FunctionTool
 from llama_index.core.agent.workflow import AgentWorkflow, FunctionAgent
 from llama_index.llms.openai import OpenAI
 from monocle_apptrace.instrumentation.common.instrumentor import setup_monocle_telemetry
 from llama_index.core.agent import ReActAgent
 from llama_index.tools.mcp import aget_tools_from_mcp_url
+from llama_index.core.memory.chat_memory_buffer import ChatMemoryBuffer
 import logging
 
 logger = logging.getLogger(__name__)
-
-setup_monocle_telemetry(workflow_name="okahu_demos_llamaindex_travel_agent", monocle_exporters_list='okahu,file')
+session_id = None
+setup_monocle_telemetry(workflow_name="okahu_demos_llamaindex_travel_agent", monocle_exporters_list='file')
 
 def book_hotel(hotel_name: str):
     """Book a hotel"""
@@ -113,23 +115,29 @@ async def setup_agents():
     )
     return agent_workflow
 
-async def run_agent(user_msg: str = None):
-    """Test multi-agent interaction with flight and hotel booking."""
+async def run_agent(user_msg: str = None, session_id: str = None):
+    """Test multi-agent interaction with flight and hotel booking. Supports session_id and per-session memory."""
 
     agent_workflow = await setup_agents()
+    memory = None
+    if session_id:
+        memory = ChatMemoryBuffer.from_defaults(
+        token_limit=3000,
+        chat_store_key=session_id
+    )
     
     # If no user_msg provided, use default requests (for manual testing)
     if user_msg is None:
         requests = [
             "Book a flight from San Jose to Boston and a book hotel stay at Hyatt Hotel, and tell the weather in Boston.",
-            ]
+        ]
         for req in requests:
-            resp = await agent_workflow.run(user_msg=req)
+            resp = await agent_workflow.run(user_msg=req, memory=memory)
             print(resp)
         return None
     else:
         # For test framework: process single message and return response as string
-        resp = await agent_workflow.run(user_msg=user_msg)
+        resp = await agent_workflow.run(user_msg=user_msg, memory=memory)
         # Extract the string response from the workflow result
         if hasattr(resp, 'response'):
             return str(resp.response)
@@ -138,7 +146,11 @@ async def run_agent(user_msg: str = None):
         else:
             return str(resp)
 
+def generate_session_id() -> str:
+    return str(UUID(int=time.time_ns()))  # Simple UUID based on current time
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.WARN)
-    asyncio.run(run_agent())
+    session_id = generate_session_id()
+    asyncio.run(run_agent(session_id=session_id))
     
