@@ -2,7 +2,7 @@ venv*
 .venv*
 .env*
 .env.test*
-# .monocle/
+.monocle/
 __pycache__/
 
 *.out
