@@ -2,20 +2,24 @@ from asyncio import sleep
 import pytest
 import pytest_asyncio
 from monocle_test_tools import TraceAssertion
-from llamaindex_travel_agent import setup_agents
+from llamaindex_travel_agent import setup_agents, generate_session_id
 
 supervisor = None
+session_id = None
 
 @pytest_asyncio.fixture(scope="session", autouse=True)
 async def setup_supervior():
     """Set up the travel booking supervisor agent."""
     global supervisor
     supervisor = await setup_agents()
+    global session_id
+    if session_id is None:
+        session_id = generate_session_id()
 
 @pytest.mark.asyncio
 async def test_agent_and_tool_invocation(monocle_trace_asserter):
     await monocle_trace_asserter.run_agent_async(supervisor, "llamaindex",
-                    "Book a flight from San Francisco to Mumbai on April 30th 2026. Book hotel Marriott in Central Mumbai. Also how is the weather going to be in Mumbai?")
+                    "Book a flight from San Francisco to Mumbai on April 30th 2026. Book hotel Marriott in Central Mumbai. Also how is the weather going to be in Mumbai?", session_id=session_id)
 
     monocle_trace_asserter.called_tool("lmx_book_flight_tool","lmx_flight_booking_agent") \
         .contains_input("Mumbai").contains_input("San Francisco") \
