@@ -1,19 +1,25 @@
 from asyncio import sleep
 import logging
-import pytest 
+import pytest, pytest_asyncio
 import logging
 import os
 from dotenv import load_dotenv
 
-from llamaindex_travel_agent import (
-    setup_agents
-)
+from llamaindex_travel_agent import generate_session_id, setup_agents
 from monocle_test_tools import TestCase, MonocleValidator
 
 OKAHU_API_KEY = os.environ.get('OKAHU_API_KEY')
 logging.basicConfig(level=logging.WARN)
 load_dotenv()
 
+session_id = None
+
+@pytest_asyncio.fixture(scope="session", autouse=True)
+async def setup_session():
+    """Set up the session."""
+    global session_id
+    if session_id is None:
+        session_id = generate_session_id()
 
 agent_test_cases:list[TestCase] = [
     {
@@ -64,7 +70,7 @@ agent_test_cases:list[TestCase] = [
 @MonocleValidator().monocle_testcase(agent_test_cases)
 async def test_run_agents(my_test_case: TestCase):
     agent_workflow = await setup_agents()
-    await MonocleValidator().test_agent_async(agent_workflow, "llamaindex", my_test_case)
+    await MonocleValidator().test_agent_async(agent_workflow, "llamaindex", my_test_case, session_id=session_id)
     await sleep(10)
 
 
