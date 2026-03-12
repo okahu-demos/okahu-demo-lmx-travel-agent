@@ -30,12 +30,12 @@ The app uses OpenAI gpt-4o model for inference.
 1. Source the agent environment
   ```source agent_env.sh```
 2. Start the mock weather MCP server
-  ```python weather-mcp-server.py > mcp.out 2>&1 &```
+  ```python weather_mcp_server.py > mcp.out 2>&1 &```
 3. Verify mcp server is running
   ```cat mcp.out```
   The above command prints content of mpc.out file which should show a message `Application startup complete`
 4. Run the pre-instrumented travel agent app with following command
-   ```python lc-travel-agent.py```
+   ```python llamaindex_travel_agent.py```
    The application will prompt you for a travel booking task. You can enter something like `Book a flight from SFO to BOM next week. Book Marriot hotel in central mumbai. Also how't the weather going to be in Mumbai next week?`
    It should responds with successful booking of flight and hotel, as well as weather forcast.
 
