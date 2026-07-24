@@ -1,7 +1,11 @@
 nest-asyncio==1.6.0
 mcp==1.25.0
-llama-index==0.14.10
-llama-index-tools-mcp==0.4.5
+# Pinned to 0.13.x: llama-index 0.14 rewrote the AgentWorkflow handoff/memory
+# engine (standalone llama-index-workflows 2.x), which breaks multi-agent
+# handoffs here - the coordinator loses track of completed sub-agent tasks and
+# re-delegates forever ("Max iterations reached"). 0.13 keeps the working engine.
+llama-index==0.13.0
+llama-index-tools-mcp==0.3.0
 fastapi==0.128.0
 uvicorn==0.40.0
 monocle-apptrace==0.8.8
