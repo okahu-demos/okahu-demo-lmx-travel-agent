@@ -8,4 +8,4 @@ llama-index==0.13.0
 llama-index-tools-mcp==0.3.0
 fastapi==0.128.0
 uvicorn==0.40.0
-monocle-apptrace==0.8.11
+monocle-apptrace==0.8.13
